@@ -1,0 +1,370 @@
+﻿@model Web2.UsersMap
+<!-- VIS.JS -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6" crossorigin="anonymous">
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js" integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf" crossorigin="anonymous"></script>
+<!-- Последняя компиляция и сжатый CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+<!-- Дополнение к теме -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+
+<!-- Последняя компиляция и сжатый JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+
+<!-- VIS.JS -->
+<script src="https://unpkg.com/vis-network/standalone/umd/vis-network.min.js"></script>
+<script src="https://kit.fontawesome.com/481e905a1e.js" crossorigin="anonymous"></script>
+<link rel="stylesheet" href="~/css/burgerStyle.css">
+<link rel="stylesheet" href="~/css/style.css">
+<link rel="stylesheet" href="~/css/sliderStyle.css">
+<link rel="stylesheet" href="~/css/navbarStyle.css">
+<link href="~/css/popUp.css" rel="stylesheet" />
+
+
+<div class="content-maker" style="display: none">@Model.Map.Value</div>
+<div id="work-area">
+    <div id="mynetwork"></div>
+
+    <div class="save-block2">
+        <form asp-action="EditMap" asp-controller="Map" asp-anti-forgery="true">
+
+            <div asp-validation-summary="ModelOnly" id="hid1"></div>
+            <input type="hidden" asp-for="UsersMapId" />
+            <div>
+                <div class="hidden_block">
+
+                    <div class="hid3">
+                        <input class="hidden_json" asp-for="Progress" /><br>
+                    </div>
+                </div>
+
+                <script>
+                    document.querySelector(".hidden_block").hidden = true;
+                </script>
+
+                <div class="form-group">
+                    <input class="suit_and_tie" onclick="exportNetwork()" type="submit" value="SAVE" />
+                </div>
+
+            </div>
+        </form>
+    </div>
+
+    <div class="container map-name editable unselectable">Название</div>
+    <div class="pop-up-label">
+        <div class="pop-up-block">
+            Lorem ipsum dolor sit amet, dicant constituto sed et, molestie offendit quaerendum eu mea, pri ut ferri zril. Delenit legendos est ut, no mea esse dicunt reprehendunt. Ut omnis habemus omittantur vix, per eu iriure nonumes facilis, cu propriae apeirian sea.
+        </div>
+        <div class="done">
+            <input class=" doneCheck" type="checkbox" value="" id="flexCheckDefault">
+            <label for="flexCheckDefault">
+                Пройдено
+            </label>
+        </div>
+    </div>
+
+    <script charset="utf-8">
+            @*newId = 5;
+    nodeShape = '';
+    edgeType = '';
+
+    shapeList = new Map();
+
+    const nodesArray = [
+        { id: 1, label: '1' },
+        { id: 2, label: '2' },
+        { id: 3, label: '3' },
+        { id: 4, label: '4' },
+    ]
+    nodes = new vis.DataSet(nodesArray);
+
+    const edgesArray = [
+        { id: '1-2', from: 1, to: 2 },
+        { id: '1-3', from: 1, to: 3 },
+        { id: '2-3', from: 2, to: 3 },
+        { id: '1-4', from: 1, to: 4 },
+    ]
+    edges = new vis.DataSet(edgesArray);
+
+    const mynetwork = document.getElementById('mynetwork');
+    mynetwork.oncontextmenu = function () { return false };
+
+    const data = {
+        nodes: nodes,
+        edges: edges,
+    }
+
+    const options = {
+        physics: false,
+        nodes: {
+            scaling: {
+                label: {
+                    enabled: true,
+                    min: 10,
+                    max: 50
+                }
+            },
+            value: 5,
+            fixed: true
+        },
+        edges: {
+            smooth: false,
+            color: {
+                color: "#2B7CE9",
+                highlight: '#2B7CE9',
+                hover: '#2B7CE9',
+                inherit: false
+            }
+        },
+        manipulation: {
+            enabled: false,
+            addNode: function (nodeData, callback) {
+                shapeList.set(newId, String(nodeShape));
+                nodeData.id = newId++;
+                nodeData.shape = String(nodeShape);
+                nodeData.description = "";
+                callback(nodeData);
+                mynetwork.style.cursor = 'default';
+            },
+            addEdge: function (edgeData, callback) {
+                switch (edgeType) {
+                    case 'default':
+                        break;
+
+                    case 'arrow':
+                        edgeData.arrows = {
+                            to: {
+                                enabled: true,
+                                scaleFactor: 0.3
+                            },
+                            from: {
+                                enabled: false
+                            }
+                        };
+                        break;
+
+                    case 'dotted':
+                        edgeData.dashes = true;
+                        break;
+                };
+                callback(edgeData);
+                mynetwork.style.cursor = 'default';
+            }
+        },
+        interaction: {
+            hover: true,
+            hoverConnectedEdges: false,
+            multiselect: true
+        }
+    }
+
+    network = new vis.Network(mynetwork, data, options);*@
+
+            var mapJson = '@Model.Map.Value'
+            prJson = '@Model.Progress'
+
+            var tempProgressJson = prJson.replace(/&quot;/g, "\"");
+
+            @*var stringJson = document.querySelector(".content-maker").value;*@
+            mapJson = document.querySelector('.content-maker').textContent;
+
+            var inputData = JSON.parse(mapJson);
+            var inputProgress = JSON.parse(tempProgressJson);
+
+    mapName = inputData.shift();
+    $('.map-name').text(mapName);
+
+    const options = {
+        physics: false,
+        nodes: {
+            scaling: {
+                label: {
+                    enabled: true,
+                    min: 10,
+                    max: 50
+                }
+            },
+            value: 5,
+            fixed: true
+        },
+        edges: {
+            smooth: false,
+            color: {
+                color: "#2B7CE9",
+                highlight: '#2B7CE9',
+                hover: '#2B7CE9',
+                inherit: false
+            }
+        },
+        manipulation: {
+            enabled: false,
+            addNode: function (nodeData, callback) {
+                shapeList.set(newId, String(nodeShape));
+                nodeData.id = newId++;
+                nodeData.shape = String(nodeShape);
+                nodeData.description = "";
+                callback(nodeData);
+                mynetwork.style.cursor = 'default';
+            },
+            addEdge: function (edgeData, callback) {
+                switch (edgeType) {
+                    case 'default':
+                        break;
+
+                    case 'arrow':
+                        edgeData.arrows = {
+                            to: {
+                                enabled: true,
+                                scaleFactor: 0.3
+                            },
+                            from: {
+                                enabled: false
+                            }
+                        };
+                        break;
+
+                    case 'dotted':
+                        edgeData.dashes = true;
+                        break;
+                };
+                callback(edgeData);
+                mynetwork.style.cursor = 'default';
+            }
+        },
+        interaction: {
+            hover: true,
+            hoverConnectedEdges: false,
+            multiselect: true
+        }
+    }
+
+    nodes = getNodeData(inputData);
+    edges = getEdgeData(inputData);
+
+    var data = {
+        nodes: nodes,
+        edges: edges,
+    }
+
+    network = new vis.Network(mynetwork, data, options);
+
+    document.querySelector(".pop-up-label").hidden = true;
+
+    network.on("selectNode", function (params) {
+
+        nodeId = params.nodes[0];
+        node = getNode(nodeId);
+
+        inputDescription(node);
+    });
+
+    network.on("deselectNode", function (params) {
+        document.querySelector(".pop-up-label").hidden = true;
+    })
+
+            let chbx = document.querySelector('.doneCheck');
+            chbx.addEventListener('change', (event) => {
+                selectedNodeId = network.getSelectedNodes()[0];
+                selectedNode = getNode(selectedNodeId);
+
+                if (event.currentTarget.checked) {
+                    selectedNode.options.font.color = '#FF0000';
+                }
+                else {
+                    selectedNode.options.font.color = '#000000';
+                }
+
+                selectedNode.options.done = event.currentTarget.checked ? "true" : "false";
+                nodes.update(selectedNode);
+            });
+
+            function getProgressValue(nodeId) {
+                inputProgress.forEach(function (item) {
+                    if (item["id"] == nodeId) {
+                        return item;
+                    }
+                    else return;
+                });
+            }
+
+    function getNodeData(data) { //получает информацию о node из json
+        var networkNodes = [];
+        var tempDone;
+
+        data.forEach(function (elem, index, array) {
+
+            inputProgress.forEach(function (item) {
+                if (item["id"] == elem.id) {
+                    tempDone = item["done"];
+                }
+            });
+
+            networkNodes.push({
+                id: elem.id,
+                label: elem.label,
+                color: elem.color,
+                description: elem.description,
+                shape: elem.shape,
+                x: elem.x,
+                y: elem.y,
+                done: tempDone,
+                font: {
+                    color: tempDone == "true" ? '#FF0000' : '#000000'
+                }
+            });
+        });
+
+        return new vis.DataSet(networkNodes);
+    }
+
+    function getNodeById(data, id) {//возвращает node по id из stringJson
+        for (var n = 0; n < data.length; n++) {
+            if (data[n].id == id) {
+                return data[n];
+            }
+        }
+        throw "Cann't find id " + id + "in data";
+    }
+
+    function getEdgeData(data) { // получает информацию о edge из json
+        var networkEdges = [];
+
+        data.forEach(function (node) {
+            node.connections.forEach(function (connId, cIndex, conns) {
+                networkEdges.push({ from: node.id, to: connId });
+                let cNode = getNodeById(data, connId);
+
+                var elementConnections = cNode.connections;
+
+                var duplicateIndex = elementConnections.findIndex(function (connection) {
+                    return connection == node.id;
+                });
+
+                if (duplicateIndex != -1) {
+                    elementConnections.splice(duplicateIndex, 1);
+                }
+            })
+        });
+
+        return new vis.DataSet(networkEdges);
+    }
+
+
+    ///////////////////////////////////////////////
+
+    function getNode(nodeId) {  //возвращает node по id
+        var nodeObj = network.body.nodes[nodeId];
+        return nodeObj;
+    }
+
+    function getEdge(edgeId) { //возваращет edge по id
+        var edgeObj = network.body.edges[edgeId];
+        return edgeObj;
+    }
+
+
+    </script>
+</div>
+<script src="~/js/inputDescription.js"></script>
+<script src="~/js/saveProgress.js"></script>

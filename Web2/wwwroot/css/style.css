@@ -1,0 +1,255 @@
+@font-face {
+    font-family: Raleway;
+    src: url(fonts/20339.ttf);
+}
+
+@font-face {
+    font-family: Gardens;
+    src: url(fonts/20011.ttf);
+}
+
+*{
+    margin: 0;
+    padding: 0;
+    font-family: Gardens;
+}
+
+#mynetwork{
+    width: 100%;
+    height: 100%;
+}
+
+#work-area {
+    margin-left: 1%;
+    margin-right: 1%;
+    margin-top: 10px;
+    height: 500px;
+    background-color: white;
+    border: 1px solid black;
+    overflow: hidden;
+    position: relative;
+}
+
+.menu-wrap{
+    background-color: white;
+    position: absolute;
+    top:0;
+    right: 0;
+    margin-right: -23%;
+    margin-top: 0.5px;
+    width: 23%;
+    height: 100%;
+    overflow: auto;
+    transition: .25s;
+    padding-top: 10px;
+}
+
+
+.menu-show{
+    margin-right: 0.5px;
+    box-shadow: 4px 2px 15px 1px #B9ADAD;
+}
+
+.btn-shape{
+    background-color: transparent;
+    border: 2px solid black;
+    border-radius: 20px;
+
+    padding: 5px 10px;
+
+    font-family: Georgia, 'Times New Roman', Times, serif;
+    font-size: 1.2vw;
+
+    margin-top: 10px;
+
+    transition: .5s;
+}
+
+.btn-shape:active,
+.btn-shape:focus{
+    outline: none;
+}
+
+.btn-shape:hover{
+    background-color: rgba(0,0,0,0.1);
+}
+
+.edges-block button{
+    width: 100px;
+    height: 40px;
+}
+
+#defaultEdge{
+    width: 60px;
+}
+
+#arrowEdge{
+    width: 60px;
+    height: 20px;
+}
+
+#dottedEdge{
+    width: 60px;
+}
+
+
+.map-name{
+    position: absolute;
+    padding: 10px 10px;
+    margin: 0px;
+    width: auto;
+
+    /* background-color: #444444;
+    border: 3px solid #6968AB; */
+
+    border: 2px solid black;
+    border-radius: 0 0 25px 0;
+    color:black;
+    top:0;
+    
+    text-transform: uppercase;
+    font-size: 20px;
+    letter-spacing: 2px;
+    
+    transition: .25s;
+}
+
+.input-map-name:focus, .input-map-name{
+    background: transparent;
+    border: none;
+    outline: none;
+    width: auto;
+    
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-top: 0px;
+    padding-bottom: 0px;
+
+    color: aliceblue;
+    text-transform: uppercase;
+    font-size: 20px;
+    letter-spacing: 2px;
+}
+
+.form-control:focus{
+    outline: none;
+}
+
+.map-name:hover{
+    cursor: pointer;
+}
+
+.hidden{
+    opacity: 0;
+}
+
+.menu-wrap .container-fluid{
+    margin-top: 10px;
+}
+
+.form-control-color{
+    margin-top: 10px;
+}
+
+.name-input{
+    position: absolute;
+    top: 0;
+}
+
+.unselectable {
+    -webkit-touch-callout: none; /* iOS Safari */
+    -webkit-user-select: none;   /* Chrome/Safari/Opera */
+    -khtml-user-select: none;    /* Konqueror */
+    -moz-user-select: none;      /* Firefox */
+    -ms-user-select: none;       /* Internet Explorer/Edge */
+}
+
+#overlay{
+    background: rgba(0,0,0,0.7);
+    display:none;
+    width: 100%; height: 100%;
+    position: absolute;
+    top:0;
+    left:0;
+    z-index:99998;
+}
+
+.nodeDescription{
+    margin-top: 10px;
+    height: 300px;
+}
+
+.form-switch{
+    color: black;
+}
+
+.menu-wrap::-webkit-scrollbar {
+    width: 0px;
+    background-color: #f9f9fd;
+  }
+  
+  .menu-wrap::-webkit-scrollbar-thumb {
+    border-radius: 10px;
+    background-color: #18aaaa;
+  }
+
+  .menu-wrap::-webkit-scrollbar-track {
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.2);
+    border-radius: 10px;
+    background-color: #f9f9fd;
+  }
+
+  #pallete{
+      width: 80%;
+      padding: 0px 0px;
+  }
+
+.save-block2{
+    position: absolute;
+    bottom: 1%;
+    left: 1%;    
+}
+
+.suit_and_tie {
+    /* font */
+    color: black;
+    font-weight: bold;
+    font-size: 20px;
+    font-family: helvetica;
+    
+    /* remove blue underline */
+    text-decoration: none;
+    
+    /* border */
+    border: 2px solid black;
+    border-radius: 20px;
+    
+    /* transitions */
+    transition-duration: .2s;
+    -webkit-transition-duration: .2s;
+    -moz-transition-duration: .2s;
+    
+    /* other */
+    background-color: white;
+    padding: 4px 30px;
+    margin-bottom: 10px;
+  }
+
+  .suit_and_tie:hover {
+    /* update text color and background color */
+    color:white;
+    background-color:black;
+    
+     /* transitions */
+    transition-duration: .2s;
+    -webkit-transition-duration: .11s;
+    -moz-transition-duration: .2s;
+  }
+
+  .access-block{
+      margin-left: 5px;
+  }
+
+.hid1, .hid2, .hid3 {
+    display: none;
+}

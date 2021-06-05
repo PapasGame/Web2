@@ -1,0 +1,300 @@
+﻿@model Web2.Map
+<!-- VIS.JS -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6" crossorigin="anonymous">
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js" integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf" crossorigin="anonymous"></script>
+<!-- Последняя компиляция и сжатый CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+<!-- Дополнение к теме -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+
+<!-- Последняя компиляция и сжатый JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+
+<!-- VIS.JS -->
+<script src="https://unpkg.com/vis-network/standalone/umd/vis-network.min.js"></script>
+<script src="https://kit.fontawesome.com/481e905a1e.js" crossorigin="anonymous"></script>
+<link rel="stylesheet" href="~/css/burgerStyle.css">
+<link rel="stylesheet" href="~/css/style.css">
+<link rel="stylesheet" href="~/css/sliderStyle.css">
+<link rel="stylesheet" href="~/css/navbarStyle.css">
+
+<div id="work-area">
+    <div id="mynetwork"></div>
+
+    <div class="container map-name editable unselectable">Название</div>
+    <div id="overlay"></div>
+
+    <div class="menu-wrap">
+
+        <div class="container-fluid shape-block">
+            <button class="btn-shape" onclick="myAddNode('circle')">Circle</button>
+            <button class="btn-shape" onclick="myAddNode('square')">Square</button>
+            <button class="btn-shape" onclick="myAddNode('star')">Star</button>
+            <button class="btn-shape" type="button" data-toggle="collapse" data-target="#collapseShape" aria-expanded="false" aria-controls="collapseShape"><i class="fas fa-angle-down"></i></button>
+            <div class="collapse" id="collapseShape">
+                <div class="shape-block">
+                    <button class="btn-shape" onclick="myAddNode('ellipse')">Ellipse</button>
+                    <button class="btn-shape" onclick="myAddNode('database')">DataBase</button>
+                    <button class="btn-shape" onclick="myAddNode('triangle')">Triangle</button>
+                </div>
+                <div class="shape-block">
+                    <button class="btn-shape" onclick="myAddNode('diamond')">Diamond</button>
+                    <button class="btn-shape" onclick="myAddNode('box')">Box</button>
+                    <button class="btn-shape" onclick="myAddNode('hexagon')">Hexagon</button>
+                </div>
+            </div>
+        </div>
+
+        <hr>
+
+        <div class="container-fluid edges-block">
+            <button class="btn btn-shape" onclick="myAddEdge('default')">
+                <img src="~/icons/line.png" alt="" id="defaultEdge">
+            </button>
+            <button class="btn btn-shape" onclick="myAddEdge('arrow')">
+                <img src="~/icons/arrow.png" alt="" id="arrowEdge">
+            </button>
+            <button class="btn btn-shape" onclick="myAddEdge('dotted')">
+                <img src="~/icons/dottedLine.png" alt="" id="dottedEdge">
+            </button>
+        </div>
+
+        <hr>
+
+        <div class="container-fluid colors">
+            <input type="color" id="pallete" class="form-control form-control-color" value="#97C2FC" title="Choose your color">
+        </div>
+
+        <hr>
+
+        <!-- <div class="container-fluid size">
+          <input type="range" class="form-range" min="0.1" max="1" step="0.1" id="sizeRange" value="0.1" oninput="changeSize()">
+        </div>
+
+        <hr> -->
+
+        <div class="container-fluid description-block">
+            <input type="text" class="nodeLabel form-control">
+            <textarea class="nodeDescription form-control" rows="10"></textarea>
+        </div>
+
+        <div class="container-fluid save-block">
+            <button class="btn btn-success" onclick="exportNetwork()">Export</button>
+            <button class="btn btn-success" onclick="importNetwork()">Import</button>
+        </div>
+    </div>
+
+    <span class="toggle-button">
+        <div class="menu-bar menu-bar-top"></div>
+        <div class="menu-bar menu-bar-middle"></div>
+        <div class="menu-bar menu-bar-bottom"></div>
+    </span>
+
+    <div class="save-block2">
+        <form asp-action="AddMap" asp-controller="Map" asp-anti-forgery="true">
+
+            <div asp-validation-summary="ModelOnly" id="hid1"></div>
+            <div>
+                <div class="hidden_block">
+                    <div class="hid2">
+                        <input class="hidden_Name" type="text" asp-for="Name" /><br>
+                    </div>
+                    <div class="hid3">
+                        <input class="hidden_json" asp-for="Value" /><br>
+                    </div>
+                </div>
+
+                <script>
+                    document.querySelector(".hidden_block").hidden = true;
+                </script>
+
+                <div class="form-group">
+                    <input class="suit_and_tie" onclick="exportNetwork()" type="submit" value="SAVE" />
+                </div>
+                <div class="form-check form-switch access-block">
+                    <input class="form-check-input" asp-for="Access" type="checkbox" id="chbx">
+                    <label for="chbx" asp-for="Access" class="form-check-label">Private access</label>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+<script>
+    newId = 5;
+    nodeShape = '';
+    edgeType = '';
+
+    shapeList = new Map();
+
+    const nodesArray = [
+        { id: 1, label: '1' },
+        { id: 2, label: '2' },
+        { id: 3, label: '3' },
+        { id: 4, label: '4' },
+    ]
+    nodes = new vis.DataSet(nodesArray);
+
+    const edgesArray = [
+        { id: '1-2', from: 1, to: 2 },
+        { id: '1-3', from: 1, to: 3 },
+        { id: '2-3', from: 2, to: 3 },
+        { id: '1-4', from: 1, to: 4 },
+    ]
+    edges = new vis.DataSet(edgesArray);
+
+    const mynetwork = document.getElementById('mynetwork');
+    mynetwork.oncontextmenu = function () { return false };
+
+    const data = {
+        nodes: nodes,
+        edges: edges,
+    }
+
+    const options = {
+        physics: false,
+        nodes: {
+            scaling: {
+                label: {
+                    enabled: true,
+                    min: 10,
+                    max: 50
+                }
+            },
+            value: 5
+        },
+        edges: {
+            smooth: false,
+            color: {
+                color: "#2B7CE9",
+                highlight: '#2B7CE9',
+                hover: '#2B7CE9',
+                inherit: false
+            }
+        },
+        manipulation: {
+            enabled: false,
+            addNode: function (nodeData, callback) {
+                shapeList.set(newId, String(nodeShape));
+                nodeData.id = newId++;
+                nodeData.shape = String(nodeShape);
+                nodeData.description = "";
+                callback(nodeData);
+                mynetwork.style.cursor = 'default';
+            },
+            addEdge: function (edgeData, callback) {
+                switch (edgeType) {
+                    case 'default':
+                        break;
+
+                    case 'arrow':
+                        edgeData.arrows = {
+                            to: {
+                                enabled: true,
+                                scaleFactor: 0.3
+                            },
+                            from: {
+                                enabled: false
+                            }
+                        };
+                        break;
+
+                    case 'dotted':
+                        edgeData.dashes = true;
+                        break;
+                };
+                callback(edgeData);
+                mynetwork.style.cursor = 'default';
+            }
+        },
+        interaction: {
+            hover: true,
+            hoverConnectedEdges: false,
+            multiselect: true
+        }
+    }
+
+    network = new vis.Network(mynetwork, data, options);
+    addEventsAtNetwork(network);
+
+    function addEventsAtNetwork(net) {
+
+        net.on("doubleClick", function (params) {
+            addNode(params.pointer.canvas.x, params.pointer.canvas.y);
+        });
+
+
+        net.on("oncontext", function (params) {
+            addNode(params.pointer.canvas.x, params.pointer.canvas.y);
+        });
+
+
+        net.on("selectNode", function (params) {
+            nodeId = params.nodes[0];
+            node = getNode(nodeId);
+
+            setDisabled(false);
+
+            try {
+                document.getElementById("pallete").value = node.color.background;
+            } catch (e) {
+                document.getElementById("pallete").value = node.defaultOptions.color.background;
+            }
+
+            // document.getElementById("sizeRange").value = node.value;
+
+            $('.nodeLabel').val(node.options.label);
+            $('.nodeDescription').val(node.description ? node.description : node.options.description);
+        })
+
+
+        net.on("deselectNode", function (params) {
+            node = params.previousSelection.nodes[0];
+            //node = getNode(nodeId);
+
+            node.options.label = $(".nodeLabel").val();
+            node.description = $(".nodeDescription").val();
+
+            if (params.nodes.length == 0) {
+                setDisabled(true);
+                $('.nodeLabel').val("");
+                $('.nodeDescription').val("");
+            }
+        })
+    }
+
+    function addNode(x1, y1) {
+        nodes.add({
+            id: newId,
+            label: String(newId),
+            x: x1,
+            y: y1
+        });
+        newId++;
+    }
+
+    function myAddEdge(type) {
+        edgeType = type;
+        network.addEdgeMode();
+        mynetwork.style.cursor = 'move';
+    }
+
+    function myAddNode(myShape) {
+        nodeShape = myShape;
+        network.addNodeMode();
+        mynetwork.style.cursor = 'crosshair';
+    }
+
+    mynetwork.addEventListener('keydown', function (event) {
+        if (event.code == "Delete") {
+            network.deleteSelected();
+        }
+    });
+
+
+</script>
+<script src="~/js/saveScript.js"></script>
+<script src="~/js/colorScript.js"></script>
+<script src="~/js/interfaceScript.js"></script>

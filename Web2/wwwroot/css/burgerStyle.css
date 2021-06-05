@@ -1,0 +1,57 @@
+.toggle-button{
+    position: absolute;
+    width: 44px;
+    height: 40px;
+    padding: 4px;
+    transition: .25s;
+
+    top: 3%;
+    right: 1%;
+}
+
+.toggle-button:hover{
+    cursor: pointer;
+}
+
+.toggle-button .menu-bar{
+    position: absolute;
+    border-radius: 2px;
+    width: 80%;
+    transition: .5s;
+    background-color: #555;
+    height: 4px;
+}
+
+.toggle-button .menu-bar-top{
+    top: 0;
+}
+
+.toggle-button .menu-bar-middle{
+    margin-top: 7px;
+}
+
+.toggle-button .menu-bar-bottom{
+    margin-top: 18px;
+}
+
+.button-open{
+    transform: scale(0.7, 0.7) translate(20px, -20px);
+    transition: 1s;
+}
+
+.button-open .menu-bar-top{
+    background-color: black;
+    transform-origin: 50%, 50%, 0;
+    transform: translate(7px, 7px) rotate(45deg);   
+}
+
+.button-open .menu-bar-middle{
+    transition: .1s ease-in;
+    opacity: 0;
+}
+
+.button-open .menu-bar-bottom{
+    background-color: black;
+    transform-origin: 50%, 50%, 0;
+    transform: translate(7px, -15px) rotate(-45deg);
+} 
