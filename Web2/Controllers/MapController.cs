@@ -34,20 +34,28 @@ namespace Web2.Controllers
             _context.Maps.Add(map);
             await _context.SaveChangesAsync();
 
-            return RedirectToAction(nameof(Index));
+            return RedirectToAction(nameof(CreateMap));
         }
 
 
 
-        public IActionResult WorkWithMap()
+        public IActionResult WorkWithMap(int? id)
         {
-            UsersMap um = _context.UsersMaps.Include(u => u.Map).FirstOrDefault();
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            User AuthUser = _context.Users.FirstOrDefault(u => u.Login == User.Identity.Name.ToString());
+
+            UsersMap um = _context.UsersMaps.Include(u => u.Map).Where(u=> u.MapId==id && u.UserId==AuthUser.UserId).FirstOrDefault();
+            
             return View(um);
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> EditMap (int id, UsersMap map)
+        public async Task<IActionResult> EditMap (int? id, UsersMap map)
         {
              if (ModelState.IsValid)
             {
@@ -77,10 +85,10 @@ namespace Web2.Controllers
                 else
                 {
                     ModelState.AddModelError("", "Некорректные логин и(или) пароль");
-                    return WorkWithMap();
+                    return RedirectToAction("Profile", "User");
                 }
             }
-            return RedirectToAction(nameof(WorkWithMap));
+            return RedirectToAction("Profile", "User"); 
         }
     }
 }
