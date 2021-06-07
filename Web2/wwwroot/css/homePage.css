@@ -1,0 +1,89 @@
+.containerOur {
+    margin-left: 10%;
+    margin-right: 10%;
+    margin-top: 100px;
+    margin-bottom: 100px;
+    /*background-color: gold;*/
+}
+
+.headers{
+    font-weight: bold;
+    text-decoration: underline;
+    margin-top: 0px;
+    margin-bottom: 0px;
+}
+
+.info-block{
+    
+}
+
+
+.user_name{
+    font-size: 30px;
+}
+
+.info_buttons{
+    margin-top: 15px;
+    margin-bottom: 15px;
+}
+
+.info_btn {
+    display: inline-block;
+    background-color: white;
+    font-weight: 700;
+    text-decoration: none;
+    user-select: none;
+    padding: .5em 2em;
+    outline: none;
+    border: 2px solid black;
+    border-radius: 5px;
+    transition: 0.2s;
+  } 
+.info_btn:hover { background: rgba(180, 180, 180, 0.815); }
+.info_btn:active { background: white; }
+
+.maps_block{
+    margin-top: 50px;
+}
+
+.map_header{
+    font-size: 25px;
+}
+
+.info-subscribe-blocks{
+
+}
+
+.map_blocks{
+    width: 100%;
+    height: 250px;
+    /*background-color: seagreen;*/
+    margin-top: 10px;
+    margin-bottom: 10px;
+    border-top: 1px solid black;
+    border-bottom: 1px solid black;
+    text-align: center;
+}
+
+.map_block{
+    background-color: lightgrey;
+    display: inline-block;
+    width: 30%;
+    height: 100%;
+    margin-right: 5px;
+    margin-left: 5px;
+    border-radius: 5px;
+    transition: 0.2s;
+
+    box-shadow: 0 0 5px 5px white inset;
+}
+
+.map_block:hover{
+    background-color: rgb(161, 161, 161);
+}
+
+.open_line{
+    width: 100%;
+    height: 5px;
+    background-color: black;
+}
