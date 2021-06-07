@@ -9,6 +9,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Web2.Controllers
 {
+    [Authorize()]
     public class UserController : Controller
     {
         private DotsDBContext _context;

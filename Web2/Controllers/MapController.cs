@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -7,6 +8,7 @@ using System.Threading.Tasks;
 
 namespace Web2.Controllers
 {
+    [Authorize()]
     public class MapController : Controller
     {
         private DotsDBContext _context;
@@ -41,16 +43,27 @@ namespace Web2.Controllers
 
         public IActionResult WorkWithMap(int? id)
         {
+            UsersMap um;
             if (id == null)
             {
-                return NotFound();
+                User AuthUser = _context.Users.FirstOrDefault(u => u.Login == User.Identity.Name.ToString());
+                um = _context.UsersMaps.Include(u => u.Map).Where(u => u.UserId == AuthUser.UserId).FirstOrDefault();
             }
+            else
+            {
+                User AuthUser = _context.Users.FirstOrDefault(u => u.Login == User.Identity.Name.ToString());
 
-            User AuthUser = _context.Users.FirstOrDefault(u => u.Login == User.Identity.Name.ToString());
-
-            UsersMap um = _context.UsersMaps.Include(u => u.Map).Where(u=> u.MapId==id && u.UserId==AuthUser.UserId).FirstOrDefault();
+                um = _context.UsersMaps.Include(u => u.Map).Where(u => u.MapId == id && u.UserId == AuthUser.UserId).FirstOrDefault();
+            }
+            if (um!=null)
+            {
+                return View(um);
+            }
+            else
+            {
+                return  RedirectToAction("Profile", "User");
+            }
             
-            return View(um);
         }
 
         [HttpPost]
