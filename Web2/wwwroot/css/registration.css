@@ -1,0 +1,95 @@
+body{
+    display: flex;
+    flex-direction: column;
+}
+
+.container{
+    /*background-color: burlywood;*/
+    margin-left:auto;
+    margin-right: auto;
+    width: 500px;
+
+    text-align: center;
+   
+}
+
+.headers{
+    text-align: left;
+    font-size: 20px;
+    margin-left: 20px;
+    margin-bottom: 5px;
+}
+
+.title{
+    text-align: center;
+    font-weight: bold;
+    font-size: 45px;
+    margin-top: 100px;
+    margin-left: 0px;
+}
+
+.input_element{
+    padding: 0;
+    width: 100%;
+    height: 40px;
+    border-radius: 40px;
+    border: 1px solid black;
+    outline: none;
+
+    text-align: center;
+    font-family: sans-serif;
+    font-size: 15px;
+
+    transition: 0.2s;
+}
+
+.input_element:hover,:focus{
+    border: 3px solid black;
+
+}
+
+.input_block{
+    margin-top: 45px;
+}
+
+.register_block{
+    margin-top: 40px;
+}
+
+.register_btn {
+    padding: 0.3em 2.5em;
+    text-decoration: none;
+    border: solid 2px black;
+    background-color: white;
+    border-radius: 40px;
+    transition: .4s;
+
+    font-size: 25px;
+}
+
+.register_btn:hover {
+    background: black;
+    color: white;
+}
+
+.log_in{
+    display: block;
+    width: fit-content;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 10px;
+    font-size: 15px;
+
+    color: black;
+    text-decoration: none;
+    transition: .2s;
+}
+
+.log_in:hover{
+    text-decoration: underline;
+}
+
+.log_in:visited{
+    color: black;
+}
+

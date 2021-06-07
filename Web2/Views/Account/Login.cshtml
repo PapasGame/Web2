@@ -1,29 +1,85 @@
 ﻿@model Web2.Models.LoginModel
+@{
+    Layout = null;
+}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="~/css/resetStyle.css">
+    <link rel="stylesheet" href="~/css/registration.css">
+    <link rel="stylesheet" href="~/css/footer.css">
+    <title>Document</title>
+</head>
+<body>
 
-<h2>Вход на сайт</h2>
-
-
-<form asp-action="Login" asp-controller="Account" asp-anti-forgery="true">
-    <div class="text-danger" asp-validation-summary="ModelOnly"></div>
-    <div>
-        <div class="form-group">
-            <label asp-for="Login">Введите логин</label><br>
-            <input class="form-control-sm" type="text" asp-for="Login" /><br>
-            <span class="badge badge-light" asp-validation-for="Login" />
+    <div class="container">
+        <div>
+            <p class="headers title">
+                PlanDots
+            </p>
         </div>
-        <div class="form-group">
-            <label asp-for="Password">Введите пароль</label><br>
-            <input class="form-control-sm" asp-for="Password" /><br>
-            <span class="badge badge-light" asp-validation-for="Password" />
-        </div>
-        <div class="form-group">
-            <input type="submit" value="Войти" class="btn btn-light" />
-            <a role="button" class="btn btn-light" asp-action="Register" asp-controller="Account">Регистрация</a>
-        </div>
+        <form asp-action="Login" asp-controller="Account" asp-anti-forgery="true" style="">
+            <div class="headers" asp-validation-summary="ModelOnly"></div>
+            <div class="input_block">
+                <div>
+                    <p class="headers">
+                        Login
+                    </p>
+                </div>
+                <div>
+                    <input type="text" asp-for="Login" class="input_element login_input" placeholder="Enter your login">
+                    
+                </div>
+            </div>
+            <div class="input_block">
+                <div>
+                    <p class="headers">
+                        Password
+                    </p>
+                </div>
+                <div>
+                    <input type="text" asp-for="Password" class="input_element password_input" placeholder="Enter your password">
+                    
+                </div>
+            </div>
+            <div class="register_block">
+                <input type="submit" value="Log in" class="register_btn" />
+                
+                <a role="button" class="log_in" asp-action="Register" asp-controller="Account">Register</a>
+            </div>
+        </form>
     </div>
-</form>
-@section scripts{
+
+
+
+    @*<form asp-action="Login" asp-controller="Account" asp-anti-forgery="true">
+        <div class="text-danger" asp-validation-summary="ModelOnly"></div>
+        <div>
+            <div class="form-group">
+                <label asp-for="Login">Введите логин</label><br>
+                <input class="form-control-sm" type="text" asp-for="Login" /><br>
+                <span class="badge badge-light" asp-validation-for="Login" />
+            </div>
+            <div class="form-group">
+                <label asp-for="Password">Введите пароль</label><br>
+                <input class="form-control-sm" asp-for="Password" /><br>
+                <span class="badge badge-light" asp-validation-for="Password" />
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Войти" class="btn btn-light" />
+                <a role="button" class="btn btn-light" asp-action="Register" asp-controller="Account">Регистрация</a>
+            </div>
+        </div>
+    </form>*@
 
     <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
     <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
-}
+
+    <footer class="footer">
+        <div class="footer_line"></div>
+    </footer>
+</body>
+</html>
