@@ -41,14 +41,16 @@
                     </p>
                 </div>
                 <div>
-                    <input type="text" asp-for="Password" class="input_element password_input" placeholder="Enter your password">
+                    <input type="password" asp-for="Password" class="input_element password_input" placeholder="Enter your password">
+                    <input type="number" style="display:none;" asp-for="CheckNum" class="input_element password_input" value="@Model.CheckNum">
                     
                 </div>
             </div>
             <div class="register_block">
                 <input type="submit" value="Log in" class="register_btn" />
-                
-                <a role="button" class="log_in" asp-action="Register" asp-controller="Account">Register</a>
+
+                <a role="button" class="log_in" asp-action="Register" asp-controller="Account">Register</a><hr />
+                <a role="button" class="log_in" asp-action="Index" asp-controller="Home">Home Page</a>
             </div>
         </form>
     </div>

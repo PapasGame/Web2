@@ -62,10 +62,20 @@ namespace Web2.Controllers
             ModelState.AddModelError("", "Не прошел валидацию");
             return View(model);
         }
+       
         [HttpGet]
-        public IActionResult Login()
+        public IActionResult Login(int? i)
         {
-            return View();
+            LoginModel LM = new LoginModel();
+            if (i == null)
+            {
+                LM.CheckNum = 1;
+            }
+            else
+            {
+                LM.CheckNum = (int)i;
+            }
+            return View(LM);
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -79,7 +89,22 @@ namespace Web2.Controllers
                 if (user != null)
                 {
                     await Authenticate(user); // аутентификация
-
+                    if (model.CheckNum ==1)
+                    {
+                        return RedirectToAction("Index", "Home");
+                    }
+                    if (model.CheckNum == 2)
+                    {
+                        return RedirectToAction("CreateMap", "Map");
+                    }
+                    if (model.CheckNum == 3)
+                    {
+                        return RedirectToAction("Profile", "User");
+                    }
+                    if (model.CheckNum == 4)
+                    {
+                        return RedirectToAction("WorkWithMap", "Map");
+                    }
                     return RedirectToAction("Index", "Home");
                 }
                 ModelState.AddModelError("", "Некорректные логин и(или) пароль");

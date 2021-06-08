@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Web2.Controllers
 {
-    [Authorize()]
+    //[Authorize()]
     public class MapController : Controller
     {
         private DotsDBContext _context;
@@ -19,16 +19,24 @@ namespace Web2.Controllers
         }
         public IActionResult CreateMap()
         {
-            //string str =" [\"Название\",{\"x\": -10,\"y\": -13,\"id\": \"1\",\"connections\": [2,3,4],\"label\": \"1\"}," +
-            //    "{\"x\": -30,\"y\": 101,\"id\": \"2\",\"connections\": [3],\"label\": \"2\"},{\"x\": -164,\"y\": 2,\"id\": \"3\",\"connections\": [],\"label\": \"3\"},{\"x\": 128,\"y\": -73,\"id\": \"4\",\"connections\": [],\"label\": \"4\"}]";
-            List<string> list = new List<string>();
+            if (User.Identity.IsAuthenticated)
+            {
+                //string str =" [\"Название\",{\"x\": -10,\"y\": -13,\"id\": \"1\",\"connections\": [2,3,4],\"label\": \"1\"}," +
+                //    "{\"x\": -30,\"y\": 101,\"id\": \"2\",\"connections\": [3],\"label\": \"2\"},{\"x\": -164,\"y\": 2,\"id\": \"3\",\"connections\": [],\"label\": \"3\"},{\"x\": 128,\"y\": -73,\"id\": \"4\",\"connections\": [],\"label\": \"4\"}]";
+                List<string> list = new List<string>();
             list.Add("1");
             list.Add("2");
             
             return View();
+
+           
+            }
+            return
+                RedirectToRoute("default", new { controller = "Account", action = "Login", i = 2 }); 
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize()]
         public async Task<IActionResult> AddMap(Map map)
         {
             
@@ -36,38 +44,44 @@ namespace Web2.Controllers
             _context.Maps.Add(map);
             await _context.SaveChangesAsync();
 
-            return RedirectToAction(nameof(CreateMap));
+            return RedirectToRoute("default", new { controller = "User", action = "Profile"});
         }
 
 
 
         public IActionResult WorkWithMap(int? id)
         {
-            UsersMap um;
-            if (id == null)
+            if (User.Identity.IsAuthenticated)
             {
-                User AuthUser = _context.Users.FirstOrDefault(u => u.Login == User.Identity.Name.ToString());
-                um = _context.UsersMaps.Include(u => u.Map).Where(u => u.UserId == AuthUser.UserId).FirstOrDefault();
-            }
-            else
-            {
-                User AuthUser = _context.Users.FirstOrDefault(u => u.Login == User.Identity.Name.ToString());
+                    UsersMap um;
+                if (id == null)
+                {
+                    User AuthUser = _context.Users.FirstOrDefault(u => u.Login == User.Identity.Name.ToString());
+                    um = _context.UsersMaps.Include(u => u.Map).Where(u => u.UserId == AuthUser.UserId).FirstOrDefault();
+                }
+                else
+                {
+                    User AuthUser = _context.Users.FirstOrDefault(u => u.Login == User.Identity.Name.ToString());
 
-                um = _context.UsersMaps.Include(u => u.Map).Where(u => u.MapId == id && u.UserId == AuthUser.UserId).FirstOrDefault();
+                    um = _context.UsersMaps.Include(u => u.Map).Where(u => u.MapId == id && u.UserId == AuthUser.UserId).FirstOrDefault();
+                }
+                if (um!=null)
+                {
+                    return View(um);
+                }
+                else
+                {
+                    return  RedirectToAction("Profile", "User");
+                }
             }
-            if (um!=null)
-            {
-                return View(um);
-            }
-            else
-            {
-                return  RedirectToAction("Profile", "User");
-            }
-            
+            return
+                RedirectToRoute("default", new { controller = "Account", action = "Login", i = 4 });
+
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize()]
         public async Task<IActionResult> EditMap (int? id, UsersMap map)
         {
              if (ModelState.IsValid)

@@ -1,5 +1,44 @@
-﻿@{
+﻿@model bool
+@{
     ViewData["Title"] = "Home Page";
+}
+
+
+@if (@Model == true)
+{
+
+
+    @section Preload{
+        <div class="bm_container"
+             style="
+            background-color: black;
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            top: 0;
+            left: 0;
+            z-index: 99998;">
+
+            <div id="bm" style="height: 100%"></div>
+
+        </div>
+
+        <script src="~/animation/lottie.js"></script>
+        <script src="~/animation/mainAnimation.js"></script>
+
+
+        <script>
+
+
+            window.onload = function () {
+                setTimeout(() => {
+                    $('.bm_container').fadeOut();
+                }, 3500)
+            };
+
+
+        </script>
+    }
 }
 
 <div class="text-center">

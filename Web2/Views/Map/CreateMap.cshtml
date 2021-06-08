@@ -1,17 +1,43 @@
 ﻿@model Web2.Map
+
+@section Preload{
+    <div class="bm_container"
+         style="
+            width: 100%;
+            height: 100%;
+            background-color: white;
+            position: absolute;
+            top: 0;
+            left: 0;
+            z-index: 99998;">
+
+        <div id="bm" style="
+                        width: 300px; 
+                        margin: auto;
+                        margin-top: 100px"></div>
+
+    </div>
+
+    <script src="~/animation/lottie.js"></script>
+    <script src="~/animation/loadAnimation.js"></script>
+
+    <script>
+        {        
+            window.onload = function () {
+                $('.bm_container').fadeOut();
+                @*setTimeout(() => {
+                    $('.bm_container').fadeOut();
+                }, 3500)*@
+            };        
+        }
+    </script>
+}
+
 <!-- VIS.JS -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
 @*<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6" crossorigin="anonymous">*@
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js" integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf" crossorigin="anonymous"></script>
-<!-- Последняя компиляция и сжатый CSS -->
-<!--<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">-->
-
-<!-- Дополнение к теме -->
-<!--<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">-->
-
-<!-- Последняя компиляция и сжатый JavaScript -->
-<!--<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>-->
 
 <!-- VIS.JS -->
 <script src="https://unpkg.com/vis-network/standalone/umd/vis-network.min.js"></script>
@@ -81,10 +107,10 @@
             <textarea class="nodeDescription form-control" rows="10"></textarea>
         </div>
 
-        <div class="container-fluid save-block">
-            <button class="btn btn-success" onclick="exportNetwork()">Export</button>
-            <button class="btn btn-success" onclick="importNetwork()">Import</button>
-        </div>
+        @*<div class="container-fluid save-block">
+                <button class="btn btn-success" onclick="exportNetwork()">Export</button>
+                <button class="btn btn-success" onclick="importNetwork()">Import</button>
+            </div>*@
     </div>
 
     <span class="toggle-button">

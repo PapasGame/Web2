@@ -9,7 +9,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Web2.Controllers
 {
-    [Authorize()]
+    
     public class UserController : Controller
     {
         private DotsDBContext _context;
@@ -21,12 +21,17 @@ namespace Web2.Controllers
 
         public async Task<IActionResult> Profile()
         {
-            ProfileModel Model = new ProfileModel();
-            Model.AllMap = _context.Maps.ToList();
-            User AuthUser =  _context.Users.FirstOrDefault(u => u.Login == User.Identity.Name.ToString());
-            Model.SubsMap = _context.UsersMaps.Include(u => u.Map).Where(u => u.UserId == AuthUser.UserId).ToList();
+            if (User.Identity.IsAuthenticated)
+            {
+                ProfileModel Model = new ProfileModel();
+                Model.AllMap = _context.Maps.ToList();
+                User AuthUser =  _context.Users.FirstOrDefault(u => u.Login == User.Identity.Name.ToString());
+                Model.SubsMap = _context.UsersMaps.Include(u => u.Map).Where(u => u.UserId == AuthUser.UserId).ToList();
             
-            return View(Model);
+                return View(Model);
+            }
+            return
+                RedirectToRoute("default", new { controller = "Account", action = "Login", i = 3 });
         } 
         
         public IActionResult SubscribeMap(int id)

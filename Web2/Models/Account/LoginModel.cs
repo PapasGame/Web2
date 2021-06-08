@@ -14,5 +14,7 @@ namespace Web2.Models
         [Required(ErrorMessage = "Не указан пароль")]
         [DataType(DataType.Password)]
         public string Password { get; set; }
+
+        public int CheckNum { get; set; }
     }
 }
