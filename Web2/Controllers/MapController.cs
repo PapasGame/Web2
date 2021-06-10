@@ -20,16 +20,8 @@ namespace Web2.Controllers
         public IActionResult CreateMap()
         {
             if (User.Identity.IsAuthenticated)
-            {
-                //string str =" [\"Название\",{\"x\": -10,\"y\": -13,\"id\": \"1\",\"connections\": [2,3,4],\"label\": \"1\"}," +
-                //    "{\"x\": -30,\"y\": 101,\"id\": \"2\",\"connections\": [3],\"label\": \"2\"},{\"x\": -164,\"y\": 2,\"id\": \"3\",\"connections\": [],\"label\": \"3\"},{\"x\": 128,\"y\": -73,\"id\": \"4\",\"connections\": [],\"label\": \"4\"}]";
-                List<string> list = new List<string>();
-            list.Add("1");
-            list.Add("2");
-            
+            {  
             return View();
-
-           
             }
             return
                 RedirectToRoute("default", new { controller = "Account", action = "Login", i = 2 }); 

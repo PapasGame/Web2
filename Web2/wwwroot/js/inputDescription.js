@@ -1,9 +1,9 @@
 function inputDescription(node) {
 
-    if (node.options.description !== undefined) {
+    //if (node.options.description !== undefined) {
         document.querySelector(".pop-up-label").hidden = false;
         document.querySelector(".pop-up-block").textContent = node.options.description;
-    }
+    //}
 
     try {
         if (node.options.done == "true") {
